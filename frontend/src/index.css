@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.icon {
+  top: 8px;
+  left: 8px;
+}
+.hero-container {
+  min-height: calc(100vh - 80px);
+}
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}

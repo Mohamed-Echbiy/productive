@@ -8,12 +8,17 @@ const app = express();
 
 app.use(express.json());
 app.use(cookies());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use("/", routes);
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() =>
-    app.listen(8080, () => {
+    app.listen(8000, () => {
       console.log("banana is running 🍌");
     })
   )

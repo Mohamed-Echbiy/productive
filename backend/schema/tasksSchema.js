@@ -5,7 +5,7 @@ const dbSchema = new mongoose.Schema(
     createdBy: {
       type: String,
     },
-    title: {
+    task: {
       type: String,
       required: [true, "make sure to add the title property"],
     },

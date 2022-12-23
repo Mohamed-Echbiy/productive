@@ -1,4 +1,4 @@
-const validate = require("../validation/validate");
+const validate = require("validator");
 const { setJwt } = require("../Auth/auth");
 const db = require("../schema/main");
 const taskDb = require("../schema/tasksSchema");
@@ -11,17 +11,43 @@ const login = async (req, res) => {
       msg: "please make sure that email and password both provided",
     });
   }
-  validate(email, password, res);
-  const _id = await db.findOne({ email });
-  const user = { email, id: _id._id.toString() };
-  const accessToken = setJwt(user);
-  res
-    .status(200)
-    .cookie("ACCESS-TOKEN", accessToken, {
-      httpOnly: true,
-      expires: new Date(Date.now() + 60 * 60 * 24 * 12),
-    })
-    .json({ msg: "success" });
+  const Email = await validate.isEmail(email);
+  if (!Email) {
+    return res
+      .status(401)
+      .json({ msg: `sorry but this ${email} is not a valid one` });
+  }
+  //
+  //
+  const databasePass = await db.findOne({ email });
+  if (!databasePass) {
+    return res
+      .status(401)
+      .json({ msg: "we can't find any user with this email please signup" });
+  }
+  //
+  //
+  const hashPass = databasePass.password;
+
+  bcrypt.compare(password, hashPass).then((response) => {
+    if (!response) {
+      // console.log(response, "ù");
+      return res.status(401).json({ msg: "you entered the wrong password" });
+    }
+    if (response) {
+      // console.log(response, "?");
+      const id = databasePass._id.toString();
+      const user = { email, id };
+      const accessToken = setJwt(user);
+      res
+        .status(200)
+        .cookie("ACCESS-TOKEN", accessToken, {
+          sameSite: "lax",
+          secure: false,
+        })
+        .json({ msg: true });
+    }
+  });
 };
 
 const signup = async (req, res) => {
@@ -33,7 +59,7 @@ const signup = async (req, res) => {
         .status(401)
         .json({ msg: "this email is already taken by a user" });
     }
-    bcrypt.hash(password, 20).then((hashed) => {
+    bcrypt.hash(password, 10).then((hashed) => {
       db.create({ email, password: hashed });
     });
     res.status(200).json({ msg: "user created !!" });
@@ -87,9 +113,9 @@ const getPendingTasks = async (req, res) => {
 
 const addTask = async (req, res) => {
   const _id = req.id;
-  const { title } = req.body;
+  const { task, priority } = req.body;
   try {
-    const addTaskToDb = await taskDb.create({ createdBy: _id, title });
+    const addTaskToDb = await taskDb.create({ createdBy: _id, task, priority });
     res.status(200).json(addTaskToDb);
   } catch (error) {
     res.status(401).json({ msg: error.message });
@@ -99,6 +125,7 @@ const addTask = async (req, res) => {
 const deleteTask = async (req, res) => {
   try {
     const { _id } = req.body;
+    console.log(_id);
     const deleteThis = await taskDb.findByIdAndDelete(_id);
     res
       .status(200)

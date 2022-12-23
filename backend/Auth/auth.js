@@ -3,7 +3,7 @@ require("dotenv").config();
 const jwtDecoder = require("jwt-decode");
 
 const setJwt = (user) => {
-  console.log(user);
+  // console.log(user);
   const { email, id } = user;
   const accessToken = jwt.sign(
     { email: email, id: id },
@@ -15,6 +15,7 @@ const setJwt = (user) => {
 const validateJwt = async (req, res, next) => {
   try {
     const accessToken = req.cookies["ACCESS-TOKEN"];
+    console.log(req.cookies["ACCESS-TOKEN"]);
     if (!accessToken) {
       return res
         .status(401)
