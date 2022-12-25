@@ -4,7 +4,7 @@ import { useState } from "react";
 function AddTask() {
   const [task, setTask] = useState("");
   const [priority, setPriority] = useState("");
-  console.log(task, priority);
+  // console.log(task, priority);
   async function AddTask(e) {
     e.preventDefault();
     const req = await fetch("/api/add_task", {
@@ -15,7 +15,7 @@ function AddTask() {
       body: JSON.stringify({ task, priority }),
     });
     const res = await req.json();
-    console.log(res);
+    window.location.reload();
   }
   return (
     <div className="addTask_form capitalize">

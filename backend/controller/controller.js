@@ -95,20 +95,15 @@ const getCompletedTasks = async (req, res) => {
 };
 
 const getPendingTasks = async (req, res) => {
-  try {
-    const _id = req.id;
-    const getUserTasks = await taskDb.find({
-      createdBy: _id,
-      completed: false,
-    });
-    if (!getUserTasks) {
-      return res.status(401).json({ msg: "there is no pending tasks !" });
-    }
-    res.status(200).json(getUserTasks);
-    s;
-  } catch (error) {
-    res.status(401).json({ msg: error.message });
+  const _id = req.id;
+  const getUserTasks = await taskDb.find({
+    createdBy: _id,
+    completed: false,
+  });
+  if (!getUserTasks) {
+    return res.status(401).json({ msg: "there is no pending tasks !" });
   }
+  res.status(200).json(getUserTasks);
 };
 
 const addTask = async (req, res) => {
