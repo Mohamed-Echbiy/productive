@@ -1,14 +1,13 @@
-export async function EditTask(e, update) {
-  const _id = e.currentTarget.value;
+export async function completeTask(_id, completed) {
+  //   console.log(_id, completed);
   const req = await fetch("/api/update_task", {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ _id, ...update }),
+    body: JSON.stringify({ _id, completed: !completed }),
   });
-  // console.log(_id, update);
   const res = await req.json();
-  // console.log(res);
+  console.log(res);
   // window.location.reload();
 }

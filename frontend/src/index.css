@@ -1,16 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url("https://fonts.cdnfonts.com/css/gotham");
+*:focus-visible {
+  outline: none;
+}
 .icon {
   top: 8px;
   left: 8px;
 }
 .hero-container,
-.addTaskWindow {
+.addTaskWindow,
+.loading-screen {
   min-height: calc(100vh - 80px);
 }
 .select-selected.select-arrow-active:after {
   border-color: transparent transparent #fff transparent;
   top: 7px;
+}
+.delete {
+  right: -40px;
+}
+li {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
 }

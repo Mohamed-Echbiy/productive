@@ -15,7 +15,7 @@ const dbSchema = new mongoose.Schema(
     },
     priority: {
       type: String,
-      default: null,
+      default: "low",
     },
   },
   { timestamps: true }

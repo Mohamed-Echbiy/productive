@@ -8,6 +8,7 @@ const {
   getPendingTasks,
   deleteTask,
   updateTask,
+  logout,
 } = require("../controller/controller");
 const router = express.Router();
 const { validateJwt } = require("../Auth/auth");
@@ -16,6 +17,7 @@ const { validateJwt } = require("../Auth/auth");
 
 router.post("/api/user/login", login);
 router.post("/api/user/signup", signup);
+router.post("/api/user/logout", logout);
 
 // get tasks
 

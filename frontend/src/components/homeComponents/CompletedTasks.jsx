@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "react-query";
 import Tasks from "../common/Tasks";
+import Loading from "../Loading";
 
 function CompletedTasks() {
   const fetchPending = async () => {
@@ -10,7 +11,7 @@ function CompletedTasks() {
   };
   const { isLoading, data, isError } = useQuery("CompletedTasks", fetchPending);
   if (isLoading) {
-    return <h1>isLoading</h1>;
+    return <Loading />;
   }
   return (
     <div className="mt-10 px-5 py-2">

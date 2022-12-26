@@ -8,5 +8,5 @@ export async function deleteTask(e) {
     body: JSON.stringify({ _id }),
   });
   const res = await req.json();
-  window.location.reload();
+  console.log("deleted");
 }

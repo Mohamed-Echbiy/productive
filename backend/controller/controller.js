@@ -49,7 +49,9 @@ const login = async (req, res) => {
     }
   });
 };
-
+const logout = async (req, res) => {
+  res.status(200).clearCookie("ACCESS-TOKEN").json({ msg: "deleted" });
+};
 const signup = async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -62,7 +64,7 @@ const signup = async (req, res) => {
     bcrypt.hash(password, 10).then((hashed) => {
       db.create({ email, password: hashed });
     });
-    res.status(200).json({ msg: "user created !!" });
+    res.status(200).json({ msg: true });
   } catch (error) {
     res.status(401).json({ msg: error.message });
   }
@@ -153,4 +155,5 @@ module.exports = {
   getPendingTasks,
   deleteTask,
   updateTask,
+  logout,
 };
