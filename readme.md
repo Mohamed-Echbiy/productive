@@ -1,4 +1,4 @@
-## Efficiency is Todo app built with <p style="color: blue;">MERN</p> Stack technologies with list of features :
+## Efficiency is Todo app built with MERN Stack technologies with list of features :
 
     => random Animal Avatar
     => Ability to create accounts
