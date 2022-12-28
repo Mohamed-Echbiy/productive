@@ -7,9 +7,9 @@
     => Update Tasks
     => set Task Priority
     => responsive
-    => filtering by completed tasks pending and all functionality
+    => filtering by completed tasks pending and all functiontoality
     
     *****************************************************************
-## note : use this email: demo@demo.com , password : demo for demo access. 
+## note : use this email: demo@demo.com , password : demo to access demo account. 
     *****************************************************************
 ### you can Access site from here :=>: https://efficiency-x6l7.onrender.com
