@@ -10,4 +10,3 @@
     => filtering by completed tasks pending and all functionality
 
 ### you can Access site from here :=>: https://efficiency-x6l7.onrender.com
-### api link :=>: https://efficiency-api.onrender.com
