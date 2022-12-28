@@ -5,11 +5,21 @@ import Loading from "../Loading";
 
 function CompletedTasks() {
   const fetchPending = async () => {
-    const req = await fetch("/api/completed");
+    const token = localStorage.getItem("token");
+    const req = await fetch(
+      `https://efficiency-api.onrender.com/api/completed/${token}`,
+      {}
+    );
     const res = await req.json();
     return res;
   };
-  const { isLoading, data, isError } = useQuery("CompletedTasks", fetchPending);
+  const { isLoading, data, isError } = useQuery(
+    "CompletedTasks",
+    fetchPending,
+    {
+      isPrevious: false,
+    }
+  );
   if (isLoading) {
     return <Loading />;
   }

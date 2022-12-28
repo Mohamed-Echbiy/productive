@@ -10,13 +10,16 @@ function SignUp() {
     e.preventDefault();
     setError("");
 
-    const request = await fetch("/api/user/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    const request = await fetch(
+      "https://efficiency-api.onrender.com/api/user/signup",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      }
+    );
     const response = await request.json();
     const msg = await response.msg;
     if (response.msg === true) {

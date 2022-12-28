@@ -28,10 +28,10 @@ function Tasks({ e }) {
   }
   function lunchCompleteTask() {
     const _id = e._id;
-    setUpdateStatus((pre) => !pre);
     const completed = updatedStatus;
     completeTask(_id, completed);
     setKey((pre) => !pre);
+    setUpdateStatus((pre) => !pre);
   }
   async function LunchDelete(e) {
     deleteTask(e);
@@ -79,7 +79,7 @@ function Tasks({ e }) {
       ) : (
         <p
           className={`task_name capitalize cursor-pointer ${
-            updatedStatus && "line-through text-gray-500"
+            updatedStatus ? "line-through text-gray-500" : "banana"
           }`}
           onClick={lunchCompleteTask}
           title={

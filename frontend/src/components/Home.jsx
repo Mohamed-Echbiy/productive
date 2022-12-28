@@ -8,7 +8,7 @@ import Navigation from "./common/Navigation";
 function Home() {
   const { userAuth, setUserAuth } = useContext(AuthContext);
   useEffect(() => {
-    const user = Cookies.get("ACCESS-TOKEN");
+    const user = localStorage.getItem("token");
     if (user) {
       setUserAuth(true);
     }

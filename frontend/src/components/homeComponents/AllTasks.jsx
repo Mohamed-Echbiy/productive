@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useContext } from "react";
 import { useQuery } from "react-query";
 import { Interaction } from "../../context/interactionAuth";
@@ -8,23 +9,14 @@ import Loading from "../Loading";
 
 function AllTasks() {
   const { key, setKey } = useContext(Interaction);
-  const fetchAllTasks = async () => {
-    console.log("fetch");
-    const req = await fetch("/api", {
-      credentials: "include",
-    });
+  const fetchTasks = async () => {
+    const token = localStorage.getItem("token");
+    const req = await fetch(`https://efficiency-api.onrender.com/api/${token}`);
     const res = await req.json();
+    console.log("fetched");
     return res;
   };
-  const { isLoading, isError, data } = useQuery(
-    ["getTasks", key],
-    fetchAllTasks,
-    {
-      // refetchOnMount: true,
-      isPreviousData: false,
-      cacheTime: 0,
-    }
-  );
+  const { isLoading, data } = useQuery(["fetchAll_Tasks", key], fetchTasks);
   if (isLoading) {
     return <Loading />;
   }

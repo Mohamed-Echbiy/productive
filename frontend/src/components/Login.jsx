@@ -13,20 +13,24 @@ function Login() {
   async function login_In(e) {
     e.preventDefault();
     setError("");
-
-    const request = await fetch("/api/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    const request = await fetch(
+      "https://efficiency-api.onrender.com/api/user/login",
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      }
+    );
     const response = await request.json();
     console.log(response.msg);
     if (!response.msg === true) {
       return setError(response.msg);
     }
     if (response.msg === true) {
+      localStorage.setItem("token", response.token);
       setUserAuth(true);
     }
   }

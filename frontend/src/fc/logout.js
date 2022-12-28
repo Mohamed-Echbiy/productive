@@ -1,11 +1,4 @@
 export const logout = async () => {
-  const req = await fetch("/api/user/logout", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const res = await req.json();
-  //   console.log(res);
+  localStorage.removeItem("token");
   window.location.reload();
 };

@@ -7,7 +7,10 @@ import Loading from "../Loading";
 function PendingTasks() {
   const { key } = useContext(Interaction);
   const fetchPending = async () => {
-    const req = await fetch("/api/pending");
+    const token = localStorage.getItem("token");
+    const req = await fetch(
+      `https://efficiency-api.onrender.com/api/pending/${token}`
+    );
     const res = await req.json();
     return res;
   };
@@ -15,8 +18,7 @@ function PendingTasks() {
     ["pendingTasks", key],
     fetchPending,
     {
-      isPreviousData: false,
-      cacheTime: 0,
+      isPrevious: false,
     }
   );
 

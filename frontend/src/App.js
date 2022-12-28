@@ -34,7 +34,7 @@ function App() {
             setNotification,
           }}
         >
-          <div className="App px-2 md:px-4 lg:px-8 xl:px-16 2xl:px-32 min-h-screen relative">
+          <div className="App px-2 md:px-4 lg:px-8 xl:px-16 2xl:px-32 min-h-screen relative overflow-x-hidden">
             <Navbar />
             <Routes>
               <Route path="/login" element={<Login />} />

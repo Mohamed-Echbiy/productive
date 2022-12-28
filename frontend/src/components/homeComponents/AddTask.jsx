@@ -10,21 +10,28 @@ function AddTask() {
   const { setAddTaskWindow, setKey, setNotification } = useContext(Interaction);
   // console.log(task, priority);
   async function AddTask(e) {
+    const token = localStorage.getItem("token");
     if (!task) {
       return setError("please write your task name");
     }
     e.preventDefault();
-    const req = await fetch("/api/add_task", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ task, priority }),
-    });
+    const req = await fetch(
+      "https://efficiency-api.onrender.com/api/add_task",
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ task, priority, token }),
+      }
+    );
     const res = await req.json();
     setKey((pre) => !pre);
     setAddTaskWindow(false);
-    setNotification(true);
+    setTimeout(() => {
+      setNotification(true);
+    }, 500);
   }
   return (
     <div className="addTask_form capitalize  ">

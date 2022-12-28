@@ -15,7 +15,7 @@ import { Interaction } from "../../context/interactionAuth";
 import { RandomAvatar } from "../../fc/randomAvatar";
 
 function Navigation() {
-  const [active, setActive] = useState(3);
+  const [active, setActive] = useState(1);
   const [avatar, setAvatar] = useState("");
   const { addTaskWindow, setAddTaskWindow } = useContext(Interaction);
   useEffect(() => {
