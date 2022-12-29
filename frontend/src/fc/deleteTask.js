@@ -1,7 +1,7 @@
 export async function deleteTask(e) {
   const _id = e.currentTarget.value;
   const req = await fetch(
-    "https://efficiency-api.onrender.com/api/delete_task",
+    `https://efficiency-api.onrender.com/api/delete_task`,
     {
       method: "DELETE",
       // credentials: "include",

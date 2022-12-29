@@ -22,8 +22,8 @@ function Navigation() {
     setAvatar(RandomAvatar());
   }, []);
   return (
-    <div className="relative navigation_container pt-16">
-      <ul className="flex items-center justify-center">
+    <div className="relative navigation_container pt-16 ">
+      <ul className="flex items-center justify-center mb-12">
         <li className=" w-12 mr-2">
           <img src={avatar} alt="I am watching you" />
         </li>

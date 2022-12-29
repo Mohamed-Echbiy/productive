@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import { Email, Password } from "../Icons";
 import image from "../undraw_projections_re_ulc6.svg";
+import SortByDate from "./common/SortByDate";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -31,6 +32,12 @@ function Login() {
     }
     if (response.msg === true) {
       localStorage.setItem("token", response.token);
+      if (!localStorage.getItem("sortByDate")) {
+        localStorage.setItem("sortByDate", "asc");
+      }
+      if (!localStorage.getItem("priority")) {
+        localStorage.setItem("priority", "all");
+      }
       setUserAuth(true);
     }
   }

@@ -2,7 +2,7 @@ export async function EditTask(e, update) {
   const _id = e.currentTarget.value;
   const token = localStorage.getItem("token");
   const req = await fetch(
-    "https://efficiency-api.onrender.com/api/update_task",
+    `https://efficiency-api.onrender.com/api/update_task`,
     {
       method: "PATCH",
       // credentials: "include",

@@ -2,7 +2,7 @@ export async function completeTask(_id, completed) {
   //   console.log(_id, completed);
   const token = localStorage.getItem("token");
   const req = await fetch(
-    "https://efficiency-api.onrender.com/api/update_task",
+    `https://efficiency-api.onrender.com/api/update_task`,
     {
       method: "PATCH",
       credentials: "include",
