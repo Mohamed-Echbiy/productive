@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import Tasks from "../common/Tasks";
 import Loading from "../Loading";
@@ -22,6 +22,7 @@ function CompletedTasks() {
     ["CompletedTasks"],
     fetchPending,
     {
+      cacheTime: 5,
       refetchOnMount: true,
     }
   );

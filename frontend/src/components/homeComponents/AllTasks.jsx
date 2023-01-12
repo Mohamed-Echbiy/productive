@@ -40,6 +40,7 @@ function AllTasks() {
     fetchTasks,
     {
       refetchOnMount: true,
+      cacheTime: 5,
     }
   );
   if (isLoading) {

@@ -1,9 +1,10 @@
+import { Button, Stack } from "@mui/material";
 import React from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import { logout } from "../../fc/logout";
-import { Login, Logout, SignUp } from "../../Icons";
+import { Login, Logout, SignUp, Setting } from "../../Icons";
 
 function Navbar() {
   const { userAuth, setUserAuth } = useContext(AuthContext);
@@ -24,31 +25,43 @@ function Navbar() {
       <div className="links-register py-4 flex items-center justify-between">
         <div className="login mr-3">
           {!userAuth ? (
-            <Link
-              to={"/login"}
-              className=" sm:border-2 border-solid border-black md:px-4 md:py-2 rounded-md text-xs md:text-sm flex items-centers"
-            >
-              <span className="mr-2">login</span>
-              <Login />
+            <Link to={"/login"}>
+              <Button
+                endIcon={<Login />}
+                variant="contained"
+                color="success"
+                disableElevation
+              >
+                <span>login</span>
+              </Button>
             </Link>
           ) : (
-            <button
-              className="border-2 border-solid border-black px-4 py-2 rounded-md text-xs md:text-sm flex items-center"
-              onClick={logout}
-            >
-              <span className="mr-2">Logout</span>
-              <Logout />
-            </button>
+            <Stack direction={"row"} spacing={2}>
+              <Button
+                color="error"
+                variant="outlined"
+                endIcon={<Logout />}
+                onClick={logout}
+              >
+                LogOut
+              </Button>
+              {/* <div className="setting_icon flex items-center">
+                <Setting />
+              </div> */}
+            </Stack>
           )}
         </div>
         {!userAuth && (
           <div className="signUp ">
-            <Link
-              to={"/sign-up"}
-              className=" md:border-2 border-solid border-black md:px-4 md:py-2 rounded-md text-xs md:text-sm flex items-center"
-            >
-              <span className="mr-2">sign-up</span>
-              <SignUp />
+            <Link to={"/sign-up"}>
+              <Button
+                endIcon={<SignUp />}
+                variant="contained"
+                color="warning"
+                disableElevation
+              >
+                <span>SignUp</span>
+              </Button>
             </Link>
           </div>
         )}

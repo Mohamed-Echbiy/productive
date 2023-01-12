@@ -3,13 +3,16 @@ import { Interaction } from "../../context/interactionAuth";
 import { Button, MenuItem, Select } from "@mui/material";
 import SelectPriority from "../common/SelectPriority";
 import InputField from "../common/InputField";
+import taskAdded from "../../sounds/button-124476.mp3";
+import useSound from "use-sound";
 
 function AddTask() {
+  const [SoundPlayed] = useSound(taskAdded);
   const [task, setTask] = useState("");
   const [priority, setPriority] = useState("");
   const [error, setError] = useState("");
   const { setAddTaskWindow, setKey, setNotification } = useContext(Interaction);
-  console.log(task, priority);
+  // console.log(task, priority);
   async function AddTask(e) {
     const token = localStorage.getItem("token");
     if (!task) {
@@ -32,6 +35,7 @@ function AddTask() {
     setAddTaskWindow(false);
     setTimeout(() => {
       setNotification(true);
+      SoundPlayed();
     }, 500);
   }
   return (

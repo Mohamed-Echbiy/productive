@@ -1,3 +1,4 @@
+import { Button, InputAdornment, TextField } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
@@ -13,6 +14,7 @@ function Login() {
 
   async function login_In(e) {
     e.preventDefault();
+    localStorage.clear();
     setError("");
     const request = await fetch(
       "https://efficiency-api.onrender.com/api/user/login",
@@ -26,8 +28,8 @@ function Login() {
       }
     );
     const response = await request.json();
-    console.log(response.msg);
-    if (!response.msg === true) {
+
+    if (typeof response.msg === typeof "true") {
       return setError(response.msg);
     }
     if (response.msg === true) {
@@ -44,62 +46,64 @@ function Login() {
   if (userAuth) {
     return <Navigate to="/" />;
   }
+
   return (
     <div className=" hero-container flex flex-row-reverse justify-around items-center">
       <div className="login-form flex justify-center flex-col max-w-sm px-2 m-auto lg:m-0">
         <h2 className=" text-3xl md:text-4xl mb-10 text-violet-600">LOGIN</h2>
-        {error && (
-          <div className="error mb-7 text-center p-2 italic text-rose-600 text-sm md:text-base">
-            <p>{error}</p>
-          </div>
-        )}
-        <label
-          htmlFor="email"
-          className="mb-4 text-center text-sm md:text-base cursor-pointer"
-        >
-          Email
-        </label>
-        <div className="inputField relative">
-          <input
+        <div className="inputField relative mb-5">
+          <TextField
+            fullWidth
             type="email"
             name="email"
             id="email"
+            color="secondary"
+            variant="outlined"
+            label="Email"
+            size="medium"
             value={email}
             placeholder="demo@demo.com"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Email />
+                </InputAdornment>
+              ),
+            }}
+            error={error ? error : false}
+            helperText={error ? error : false}
             onChange={(e) => setEmail(e.target.value)}
-            className=" rounded-md border-black border border-solid mb-7 py-2 md:py-1 pl-9 w-full text-sm md:text-base"
           />
-          <div className="icon absolute w-fit ">
-            <Email />
-          </div>
         </div>
-        <label
-          htmlFor="password"
-          className="mb-4 text-center text-sm md:text-base cursor-pointer"
-        >
-          Password
-        </label>
-        <div className="inputField relative">
-          <input
+
+        <div className="inputField relative mb-5">
+          <TextField
+            fullWidth
             type="password"
             name="password"
             value={password}
             id="password"
             placeholder="demo"
-            className="rounded-md border-black border border-solid mb-7 py-2 md:py-1 pl-9 w-full text-xs md:text-base"
+            label="Password"
+            color="secondary"
             onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Password />
+                </InputAdornment>
+              ),
+            }}
           />
-          <div className="icon absolute w-fit">
-            <Password />
-          </div>
         </div>
-        <button
+        <Button
           type="submit"
-          className="px-5 py-2 w-fit text-sm md:text-base m-auto rounded border border-solid border-blue-500"
+          variant="contained"
+          color="success"
           onClick={login_In}
         >
           Login
-        </button>
+        </Button>
       </div>
       <div className="image w-2/5 hidden lg:block">
         <img

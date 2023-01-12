@@ -20,7 +20,7 @@ export default function FilterByPriority({ updateVariant, variant }) {
         value={variant}
         variant="standard"
         color="secondary"
-        className="mb-5 capitalize"
+        className="mb-5 capitalize text-white"
       >
         <MenuItem value="all">
           <Button

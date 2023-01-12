@@ -2,17 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.cdnfonts.com/css/gotham");
+* {
+  box-sizing: border-box;
+}
 *:focus-visible {
   outline: none;
 }
+
 .icon {
   top: 8px;
   left: 8px;
 }
 .hero-container,
-.addTaskWindow,
 .loading-screen {
   min-height: calc(100vh - 80px);
+}
+.notesPage {
+  min-height: calc(100vh - 273px);
+}
+.addTaskWindow {
+  height: calc(100vh - 80px);
 }
 .select-selected.select-arrow-active:after {
   border-color: transparent transparent #fff transparent;
@@ -25,4 +34,23 @@ li {
   display: flex;
   align-items: center;
   border-radius: 5px;
+}
+.setting-window {
+  background-color: rgba(255, 255, 255, 0.65);
+}
+.setting-icon {
+  z-index: 1000;
+}
+.css-14bwgb6-MuiButtonBase-root-MuiButton-root.Static_Button,
+.css-zddlty-MuiButtonBase-root-MuiButton-root.Static_Button,
+.css-s42839-MuiButtonBase-root-MuiButton-root.Static_Button,
+.css-1p4a22o-MuiButtonBase-root-MuiButton-root.Static_Button {
+  cursor: auto;
+}
+
+.note {
+  min-width: 250px;
+}
+.addNoteFields {
+  min-width: 250px;
 }

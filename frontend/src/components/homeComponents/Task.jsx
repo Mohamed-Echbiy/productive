@@ -2,44 +2,48 @@ import { useContext, useState } from "react";
 import { completeTask } from "../../fc/completeTask";
 import { deleteTask } from "../../fc/deleteTask";
 import { Interaction } from "../../context/interactionAuth";
-import { EditPen, Trash } from "../../Icons";
+import { EditPen, IsDone, IsNotDone, Trash } from "../../Icons";
 import { whatFlag } from "../../fc/whatFlag";
+import { Button } from "@mui/material";
+import useSound from "use-sound";
+import completed from "../../sounds/complete.ogg";
+import deleteSoundEffect from "../../sounds/whoosh-6316.mp3";
 
 export default function Task({ data, updateEditStatus }) {
-  const { setKey, setNotification } = useContext(Interaction);
-  const [updatedStatus, setUpdateStatus] = useState(data.completed);
+  const [Play] = useSound(completed);
+  const [deleteSound] = useSound(deleteSoundEffect);
+  const { key, setKey, setNotification } = useContext(Interaction);
+  // const [updatedStatus, setUpdateStatus] = useState(data.completed);
   const [isDeleted, setIsDeleted] = useState(false);
-
-  function lunchCompleteTask() {
-    const _id = data._id;
-    const completed = updatedStatus;
-    completeTask(_id, completed);
-    setKey((pre) => !pre);
-    setUpdateStatus((pre) => !pre);
+  async function lunchCompleteTask() {
+    const _id = await data._id;
+    const completed = await data.completed;
+    await completeTask(_id, completed);
+    await setKey((pre) => !pre);
+    !completed && Play();
+    setNotification(true);
   }
   async function LunchDelete(e) {
     deleteTask(e);
     setIsDeleted(true);
+    deleteSound();
     setNotification(true);
   }
 
   return (
     <div
-      className={`task_container text-xs md:text-base py-5 px-4 mb-4 border border-solid flex items-center justify-between ${
+      className={`task_container rounded text-xs md:text-base py-5 px-4 mb-4 border-2 border-solid  flex items-center justify-between ${
         isDeleted && "hidden"
-      }`}
+      } ${data.completed ? "border-green-600" : "border-gray-400"}`}
     >
-      <p
-        className={`task_name capitalize cursor-pointer ${
-          updatedStatus ? "line-through text-gray-500" : null
-        }`}
+      <Button
+        startIcon={data.completed ? <IsDone /> : <IsNotDone />}
         onClick={lunchCompleteTask}
-        title={
-          updatedStatus ? "click to set uncompleted" : "click to set completed"
-        }
       >
-        {data.task}
-      </p>
+        <p className={`${data.completed ? "line-through" : null} text-black`}>
+          {data.task}
+        </p>
+      </Button>
 
       <div className="priority flex items-center relative capitalize">
         {whatFlag(data.priority)}

@@ -34,6 +34,7 @@ function PendingTasks() {
     ["pendingTasks", key, sortByDate, variant],
     fetchPending,
     {
+      cacheTime: 5,
       refetchOnMount: true,
     }
   );
