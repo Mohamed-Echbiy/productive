@@ -1,17 +1,20 @@
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import React from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import { logout } from "../../fc/logout";
-import { Login, Logout, SignUp, Setting } from "../../Icons";
+import { Login, Logout, SignUp, Setting, Light, Dark } from "../../Icons";
 
-function Navbar() {
+function Navbar({ isItDark, setDarkMod }) {
   const { userAuth, setUserAuth } = useContext(AuthContext);
   function lunchLogout() {
     setUserAuth(false);
     logout();
   }
+  const changeTheme = () => {
+    isItDark ? setDarkMod(0) : setDarkMod(1);
+  };
   return (
     <div className="Navbar w-full pt-5  flex items-center justify-between">
       <div className="logo py-4 flex items-center font-semibold text-violet-600 text-lg">
@@ -45,9 +48,10 @@ function Navbar() {
               >
                 LogOut
               </Button>
-              {/* <div className="setting_icon flex items-center">
-                <Setting />
-              </div> */}
+
+              <Button variant="outlined" color="inherit" onClick={changeTheme}>
+                {+isItDark ? <Light /> : <Dark />}
+              </Button>
             </Stack>
           )}
         </div>

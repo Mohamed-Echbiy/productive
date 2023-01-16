@@ -41,9 +41,13 @@ function Navigation() {
         justifyContent={{ xs: "space-between", sm: "center" }}
         className="mb-16"
       >
-        <Stack>
-          <img src={avatar} alt="I am you" className="w-12" />
-        </Stack>
+        {+localStorage.getItem("darkMod") ? (
+          <Stack>
+            <img src={avatar} alt="I am you" className="w-12" />
+          </Stack>
+        ) : (
+          <></>
+        )}
         <Button
           color="primary"
           variant={active === 0 ? "contained" : "outlined"}

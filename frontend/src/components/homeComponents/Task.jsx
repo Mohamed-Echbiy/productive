@@ -4,7 +4,7 @@ import { deleteTask } from "../../fc/deleteTask";
 import { Interaction } from "../../context/interactionAuth";
 import { EditPen, IsDone, IsNotDone, Trash } from "../../Icons";
 import { whatFlag } from "../../fc/whatFlag";
-import { Button } from "@mui/material";
+import { Button, IconButton, Typography } from "@mui/material";
 import useSound from "use-sound";
 import completed from "../../sounds/complete.ogg";
 import deleteSoundEffect from "../../sounds/whoosh-6316.mp3";
@@ -36,14 +36,19 @@ export default function Task({ data, updateEditStatus }) {
         isDeleted && "hidden"
       } ${data.completed ? "border-green-600" : "border-gray-400"}`}
     >
-      <Button
-        startIcon={data.completed ? <IsDone /> : <IsNotDone />}
-        onClick={lunchCompleteTask}
-      >
-        <p className={`${data.completed ? "line-through" : null} text-black`}>
+      <div className="flex items-center uppercase">
+        <IconButton onClick={lunchCompleteTask}>
+          {data.completed ? <IsDone /> : <IsNotDone />}
+        </IconButton>
+        <Typography
+          className={` cursor-pointer pt-1 ${
+            data.completed ? "line-through" : null
+          }`}
+          onClick={lunchCompleteTask}
+        >
           {data.task}
-        </p>
-      </Button>
+        </Typography>
+      </div>
 
       <div className="priority flex items-center relative capitalize">
         {whatFlag(data.priority)}

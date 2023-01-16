@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { colors, CssBaseline } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/common/NavBar.jsx";
 import Home from "./components/Home.jsx";
@@ -12,15 +14,29 @@ import NotificationCard from "./components/NotifcationCard.jsx";
 const queryClient = new QueryClient();
 
 function App() {
+  const [isItDark, setDarkMode] = useState(+localStorage.getItem("darkMode"));
+  const darkTheme = createTheme({
+    palette: {
+      mode: +isItDark ? "dark" : "light",
+    },
+  });
   const [userAuth, setUserAuth] = useState(false);
   const [key, setKey] = useState(false);
   const [addTaskWindow, setAddTaskWindow] = useState(false);
   const [notification, setNotification] = useState(false);
+
+  useEffect(() => {
+    if (!localStorage.getItem("darkMode")) {
+      localStorage.setItem("darkMode", 0);
+    }
+    localStorage.setItem("darkMode", isItDark);
+  }, [isItDark]);
   if (notification) {
     setTimeout(() => {
       setNotification(false);
     }, 5000);
   }
+  // console.log(isItDark);
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContext.Provider value={{ userAuth, setUserAuth }}>
@@ -32,17 +48,23 @@ function App() {
             setAddTaskWindow,
             notification,
             setNotification,
+            isItDark,
           }}
         >
-          <div className="App px-2 md:px-4 lg:px-8 xl:px-16 2xl:px-32 min-h-screen relative overflow-x-hidden">
-            <Navbar />
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/sign-up" element={<SignUp />} />
-              <Route path="/" element={<Home />} />
-            </Routes>
-            <NotificationCard />
-          </div>
+          <ThemeProvider theme={darkTheme}>
+            <CssBaseline />
+            <div
+              className={` App px-2 md:px-4 lg:px-8 xl:px-16 2xl:px-32 min-h-screen relative overflow-x-hidden`}
+            >
+              <Navbar setDarkMod={setDarkMode} isItDark={isItDark} />
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/sign-up" element={<SignUp />} />
+                <Route path="/" element={<Home />} />
+              </Routes>
+              <NotificationCard />
+            </div>
+          </ThemeProvider>
         </Interaction.Provider>
       </AuthContext.Provider>
     </QueryClientProvider>

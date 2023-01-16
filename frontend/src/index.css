@@ -36,7 +36,7 @@ li {
   border-radius: 5px;
 }
 .setting-window {
-  background-color: rgba(255, 255, 255, 0.65);
+  /* background-color: inherit; */
 }
 .setting-icon {
   z-index: 1000;

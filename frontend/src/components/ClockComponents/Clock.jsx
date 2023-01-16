@@ -158,7 +158,7 @@ export default function Clock() {
         </div>
 
         <div
-          className={`setting absolute scale-0 -top-10 transition-all left-2 z-50 h-fit bg-white flex items-center justify-center ${
+          className={`setting absolute scale-0 -top-10 transition-all left-2 z-50 h-fit bg-inherit flex items-center justify-center ${
             settingActive && " scale-100"
           }`}
         >

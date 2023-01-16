@@ -1,20 +1,15 @@
-import {
-  Button,
-  FormControl,
-  InputAdornment,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, InputAdornment, TextField } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
+import { useContext } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
+import { Interaction } from "../../context/interactionAuth";
 import { setTimeSetting } from "../../fc/setTimeSetting";
 import { CloseAddTaskWindow } from "../../Icons";
 
 export default function TimeSetting({ setSetting }) {
+  const { isItDark } = useContext(Interaction);
   const [roundTime, setRoundTime] = useState(
     localStorage.getItem("pomoTime") || 25
   );
@@ -27,13 +22,19 @@ export default function TimeSetting({ setSetting }) {
   const [todayGoal, setTodayGoal] = useState(
     localStorage.getItem("todayGoal") || 4
   );
+
   const lunchSetTmeSetting = () => {
     setSetting(false);
     setTimeSetting(roundTime, shortBreak, longBreak, todayGoal);
   };
+  // console.log(!!isItDark);
   // console.log(roundTime, shortBreak, longBreak);
   return (
-    <div className=" setting-window w-fit border-2 border-solid border-gray-900 p-5 rounded relative">
+    <div
+      className={`setting-window w-fit border-2 border-solid ${
+        !!isItDark ? "border-gray-100 bg-gray-900" : "border-gray-900 bg-white"
+      } p-5 rounded relative`}
+    >
       <Stack direction="row" spacing={2} alignItems="center" className="mb-5">
         <TextField
           fullWidth
@@ -99,7 +100,9 @@ export default function TimeSetting({ setSetting }) {
         {/* <Typography variant="body2">Min</Typography> */}
       </Stack>
       <div
-        className="closeSetting absolute -left-3 -top-3 z-50 bg-white cursor-pointer"
+        className={`closeSetting absolute -left-3 -top-3 z-50 ${
+          !!isItDark ? "bg-black" : "bg-white"
+        } cursor-pointer`}
         onClick={() => setSetting(false)}
       >
         <CloseAddTaskWindow />
